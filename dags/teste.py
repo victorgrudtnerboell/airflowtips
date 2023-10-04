@@ -22,7 +22,9 @@ with models.DAG(
     CLUSTER = {
         "name": CLUSTER_NAME,
         "node_pools": [
-            {"name": "pool-0", "initial_node_count": 1}
+            {"name": "pool-0", "initial_node_count": 1},
+            {"name": "pool-1", "initial_node_count": 1},
+            {"name": "pool-1", "initial_node_count": 1}
         ],
     }
 
