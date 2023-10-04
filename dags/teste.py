@@ -17,28 +17,42 @@ with models.DAG(
     PROJECT_ID = "airflowgke-398222"
     CLUSTER_ZONE = "us-central1-c"
     CLUSTER_NAME = "example-cluster"
-    CLUSTER = {"name": CLUSTER_NAME, "initial_node_count": 1}
+    # CLUSTER = {"name": CLUSTER_NAME, "initial_node_count": 1}
+
+    CLUSTER = {
+        "name": CLUSTER_NAME,
+        "node_pools": [
+            {"name": "pool-0", "initial_node_count": 1}
+        ],
+    }
+
     create_cluster = GKECreateClusterOperator(
         task_id="create_cluster",
         project_id=PROJECT_ID,
         location=CLUSTER_ZONE,
         body=CLUSTER,
     )
-    # Using the BashOperator to create node pools is a workaround
-    # In Airflow 2, because of https://github.com/apache/airflow/pull/17820
-    # Node pool creation can be done using the GKECreateClusterOperator
+    # create_cluster = GKECreateClusterOperator(
+    #     task_id="create_cluster",
+    #     project_id=PROJECT_ID,
+    #     location=CLUSTER_ZONE,
+    #     body=CLUSTER,
+    # )
+    # # Using the BashOperator to create node pools is a workaround
+    # # In Airflow 2, because of https://github.com/apache/airflow/pull/17820
+    # # Node pool creation can be done using the GKECreateClusterOperator
 
-    create_node_pools = BashOperator(
-        task_id="create_node_pools",
-        bash_command=f"gcloud container node-pools create pool-0 \
-                        --cluster {CLUSTER_NAME} \
-                        --num-nodes 1 \
-                        --zone {CLUSTER_ZONE} \
-                        && gcloud container node-pools create pool-1 \
-                        --cluster {CLUSTER_NAME} \
-                        --num-nodes 1 \
-                        --zone {CLUSTER_ZONE}",
-    )
+    # create_node_pools = BashOperator(
+    #     task_id="create_node_pools",
+    #     bash_command=f"gcloud container node-pools create pool-0 \
+    #                     --cluster {CLUSTER_NAME} \
+    #                     --num-nodes 1 \
+    #                     --zone {CLUSTER_ZONE} \
+    #                     && gcloud container node-pools create pool-1 \
+    #                     --cluster {CLUSTER_NAME} \
+    #                     --num-nodes 1 \
+    #                     --zone {CLUSTER_ZONE}",
+    # )
 
     kubernetes_min_pod = GKEStartPodOperator(
         # The ID specified for the task.
