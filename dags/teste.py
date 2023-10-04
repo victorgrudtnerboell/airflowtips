@@ -5,6 +5,9 @@ from datetime import datetime
 from datetime import datetime, timedelta
 from pytz import timezone
 
+def teste():
+  pass
+
 default_args = {
   'owner': 'SALESFORCE-INGESTION',
   'depends_on_past': False,
@@ -25,7 +28,7 @@ dag = DAG(
 
 extract_transform_task = PythonOperator(
     task_id='extract_transform_data',
-    python_callable=envia_kafka_topico,
+    python_callable=teste,
     provide_context=True,
     dag=dag
 )
