@@ -5,7 +5,6 @@ from datetime import datetime
 from datetime import datetime, timedelta
 from pytz import timezone
 
-
 default_args = {
   'owner': 'SALESFORCE-INGESTION',
   'depends_on_past': False,
