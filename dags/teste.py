@@ -84,4 +84,5 @@ with models.DAG(
         location=CLUSTER_ZONE,
     )
 
-    create_cluster >> create_node_pools >> kubernetes_min_pod >> delete_cluster
+    # create_cluster >> create_node_pools >> kubernetes_min_pod >> delete_cluster
+    create_cluster >> kubernetes_min_pod >> delete_cluster
