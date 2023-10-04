@@ -38,7 +38,7 @@ def extrai_senior(user, password, encryption, url, offset):
         #'SOAPAction': 'http://www.example.com/webservice/SeuMetodo'
     }
 
-    # Envie a requisição POST com o XML
+    # Envie a requisição POST com o XML 
     response = requests.post(url, data=xml_data, headers=headers, verify=False)
 
     # Verifique se a requisição foi bem-sucedida
