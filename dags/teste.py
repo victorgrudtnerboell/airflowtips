@@ -1,4 +1,5 @@
 from airflow import models
+import os
 from airflow.operators.bash_operator import BashOperator
 from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
 from airflow.providers.google.cloud.operators.kubernetes_engine import (
@@ -7,6 +8,8 @@ from airflow.providers.google.cloud.operators.kubernetes_engine import (
     GKEStartPodOperator,
 )
 from airflow.utils.dates import days_ago
+
+os.environ[CREDENTIALS] = "/airflowgke-402322-eaa11b42c80f.json"
 
 with models.DAG(
     "example_gcp_gke",
