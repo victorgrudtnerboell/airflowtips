@@ -62,7 +62,7 @@ with models.DAG(
         name="kubernetes-pod",
         is_delete_operator_pod=True,
         hostnetwork=False,
-        startup_timeout_seconds=1000
+        startup_timeout_seconds=1000,
         project_id=PROJECT_ID,
         location=CLUSTER_ZONE,
         cluster_name=CLUSTER_NAME,
