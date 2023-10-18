@@ -52,6 +52,7 @@ with models.DAG(
         image="bash",
         cmds=["echo"],
         arguments=["{{ ds }}"],
+        gcp_conn_id='google_cloud_default'
     )
 
     # delete_cluster = GKEDeleteClusterOperator(
