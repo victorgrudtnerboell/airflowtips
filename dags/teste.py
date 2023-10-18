@@ -43,30 +43,30 @@ with models.DAG(
         body=CLUSTER,
     )
 
-    # kubernetes_min_pod = GKEStartPodOperator(
-    #     task_id="ex-kube-templates",
-    #     name="ex-kube-templates",
-    #     project_id=PROJECT_ID,
-    #     location=CLUSTER_ZONE,
-    #     cluster_name=CLUSTER_NAME,
-    #     namespace="default",
-    #     image="bash",
-    #     cmds=["echo"],
-    #     arguments=["{{ ds }}"],
-    #     gcp_conn_id='google_cloud_default'
-    # )
-
-    kubernetes_min_pod = KubernetesPodOperator(
-        task_id="kubernetes_pod",
-        namespace='default',
-        image="ubuntu:latest",
-        cmds=["bash", "-cx"],
-        arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
-        name="kubernetes-pod",
-        is_delete_operator_pod=True,
-        hostnetwork=False,
-        startup_timeout_seconds=1000
+    kubernetes_min_pod = GKEStartPodOperator(
+        task_id="ex-kube-templates",
+        name="ex-kube-templates",
+        project_id=PROJECT_ID,
+        location=CLUSTER_ZONE,
+        cluster_name=CLUSTER_NAME,
+        namespace="default",
+        image="bash",
+        cmds=["echo"],
+        arguments=["{{ ds }}"],
+        gcp_conn_id='google_cloud_default'
     )
+
+    # kubernetes_min_pod = KubernetesPodOperator(
+    #     task_id="kubernetes_pod",
+    #     namespace='default',
+    #     image="ubuntu:latest",
+    #     cmds=["bash", "-cx"],
+    #     arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
+    #     name="kubernetes-pod",
+    #     is_delete_operator_pod=True,
+    #     hostnetwork=False,
+    #     startup_timeout_seconds=1000
+    # )
 
     delete_cluster = GKEDeleteClusterOperator(
         task_id="delete_cluster",
