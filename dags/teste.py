@@ -27,7 +27,6 @@ with models.DAG(
             "initial_node_count": 1,
             "config": {
                 "machineType": "n1-standard-2",  # Tipo de máquina desejado
-                "oauthScopes": ["https://www.googleapis.com/auth/cloud-platform"],
                 "preemptible": False,  # Não use máquinas preemptíveis
                 "diskSizeGb": 10,  # Capacidade do disco em GB (ajuste conforme necessário)
                 "imageType": "COS",  # Tipo de imagem do sistema operacional
