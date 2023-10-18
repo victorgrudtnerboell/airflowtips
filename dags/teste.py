@@ -26,9 +26,9 @@ with models.DAG(
             "name": "pool-0",
             "initial_node_count": 1,
             "config": {
-                "machineType": "n1-standard-2",  # Tipo de máquina desejado
-                "preemptible": False,  # Não use máquinas preemptíveis
-                "diskSizeGb": 10,  # Capacidade do disco em GB (ajuste conforme necessário)
+                "machineType": "n1-standard-1",  # Tipo de máquina desejado
+                "preemptible": True,  # Usar ou não máquinas preemptíveis
+                "diskSizeGb": 10,  # Capacidade do disco em GB
             }
         }
     ],
