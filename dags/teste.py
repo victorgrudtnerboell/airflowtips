@@ -36,25 +36,25 @@ with models.DAG(
     ],
     }
 
-    create_cluster = GKECreateClusterOperator(
-        task_id="create_cluster",
-        project_id=PROJECT_ID,
-        location=CLUSTER_ZONE,
-        body=CLUSTER,
-    )
+    # create_cluster = GKECreateClusterOperator(
+    #     task_id="create_cluster",
+    #     project_id=PROJECT_ID,
+    #     location=CLUSTER_ZONE,
+    #     body=CLUSTER,
+    # )
 
-    kubernetes_min_pod = GKEStartPodOperator(
-        task_id="ex-kube-templates",
-        name="ex-kube-templates",
-        project_id=PROJECT_ID,
-        location=CLUSTER_ZONE,
-        cluster_name=CLUSTER_NAME,
-        namespace="default",
-        image="bash",
-        cmds=["echo"],
-        arguments=["{{ ds }}"],
-        gcp_conn_id='google_cloud_default'
-    )
+    # kubernetes_min_pod = GKEStartPodOperator(
+    #     task_id="ex-kube-templates",
+    #     name="ex-kube-templates",
+    #     project_id=PROJECT_ID,
+    #     location=CLUSTER_ZONE,
+    #     cluster_name=CLUSTER_NAME,
+    #     namespace="default",
+    #     image="bash",
+    #     cmds=["echo"],
+    #     arguments=["{{ ds }}"],
+    #     gcp_conn_id='google_cloud_default'
+    # )
 
     # kubernetes_min_pod = KubernetesPodOperator(
     #     task_id="kubernetes_pod",
@@ -76,6 +76,7 @@ with models.DAG(
     )
 
     # create_cluster >> create_node_pools >> kubernetes_min_pod >> delete_cluster
-    create_cluster >> kubernetes_min_pod >> delete_cluster
+    # create_cluster >> kubernetes_min_pod >> 
+    delete_cluster
     # create_cluster >> 
     # kubernetes_min_pod # >> delete_cluster
