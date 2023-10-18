@@ -62,8 +62,7 @@ with models.DAG(
         name="kubernetes-pod",
         is_delete_operator_pod=True,
         hostnetwork=False,
-        startup_timeout_seconds=1000,
-        kube_conn_id="teste"
+        startup_timeout_seconds=1000
     )
     
     # delete_cluster = GKEDeleteClusterOperator(
