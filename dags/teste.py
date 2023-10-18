@@ -9,8 +9,6 @@ from airflow.providers.google.cloud.operators.kubernetes_engine import (
 )
 from airflow.utils.dates import days_ago
 
-os.environ[CREDENTIALS] = "/airflowgke-402322-eaa11b42c80f.json"
-
 with models.DAG(
     "example_gcp_gke",
     schedule_interval=None,  # Override to match your needs
