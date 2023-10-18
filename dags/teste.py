@@ -14,7 +14,7 @@ with models.DAG(
     tags=["example"],
 ) as dag:
     # TODO(developer): update with your values
-    PROJECT_ID = "airflowgke-398222"
+    PROJECT_ID = "airflowgke-402322"
     CLUSTER_ZONE = "us-central1-c"
     CLUSTER_NAME = "example-cluster"
     # CLUSTER = {"name": CLUSTER_NAME, "initial_node_count": 1}
