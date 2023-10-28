@@ -19,7 +19,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id="trigger_dagrun_dag",
+    dag_id="dag_father",
     start_date=datetime(2023, 1, 1),
     max_active_runs=1,
     schedule="@daily",

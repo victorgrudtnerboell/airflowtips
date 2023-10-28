@@ -27,7 +27,7 @@ default_args = {
 }
 
 with DAG(
-    "external-task-sensor-dag",
+    "dag_son",
     start_date=datetime(2022, 8, 1),
     max_active_runs=3,
     schedule="*/1 * * * *",
