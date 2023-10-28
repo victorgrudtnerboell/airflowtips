@@ -30,7 +30,7 @@ with DAG(
     dag_id="dag_son",
     start_date=datetime(2022, 8, 1),
     max_active_runs=3,
-    schedule="*/1 * * * *",
+    schedule="@daily",
     catchup=False,
 ) as dag:
     start = EmptyOperator(task_id="start")
