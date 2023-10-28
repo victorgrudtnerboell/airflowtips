@@ -37,8 +37,6 @@ with DAG(
         trigger_dag_id="dag_son",
         wait_for_completion=True
     )
-    #     deferrable=True,  # Note that this parameter only exists in Airflow 2.6+
-    # )
 
     end_task = PythonOperator(
         task_id="end_task",
@@ -46,4 +44,10 @@ with DAG(
         op_kwargs={"task_type": "ending"},
     )
 
-    start_task >> trigger_dependent_dag >> end_task
+    trigger_dependent_dag2 = TriggerDagRunOperator(
+        task_id="trigger_dependent_dag2",
+        trigger_dag_id="dag_son",
+        wait_for_completion=True
+    )
+
+    start_task >> trigger_dependent_dag >> end_task >> trigger_dependent_dag2
