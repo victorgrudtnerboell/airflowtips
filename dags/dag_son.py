@@ -51,4 +51,4 @@ with DAG(
         python_callable=downstream_function_branch_3,
     )
 
-    start >> ets_branch_1 >> task_branch_1 >> ets_branch_3 >> end
+    start >> task_branch_1 >> task_branch_2 >> task_branch_3 >> end
