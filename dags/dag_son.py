@@ -36,38 +36,14 @@ with DAG(
     start = EmptyOperator(task_id="start")
     end = EmptyOperator(task_id="end")
 
-    ets_branch_1 = ExternalTaskSensor(
-        task_id="ets_branch_1",
-        external_dag_id="upstream_dag_1",
-        external_task_id="my_task",
-        allowed_states=["success"],
-        failed_states=["failed", "skipped"],
-    )
-
     task_branch_1 = PythonOperator(
         task_id="task_branch_1",
-        python_callable=downstream_function_branch_1,
-    )
-
-    ets_branch_2 = ExternalTaskSensor(
-        task_id="ets_branch_2",
-        external_dag_id="upstream_dag_2",
-        external_task_id="my_task",
-        allowed_states=["success"],
-        failed_states=["failed", "skipped"],
+        python_callable=downstream_function_branch_3,
     )
 
     task_branch_2 = PythonOperator(
         task_id="task_branch_2",
-        python_callable=downstream_function_branch_2,
-    )
-
-    ets_branch_3 = ExternalTaskSensor(
-        task_id="ets_branch_3",
-        external_dag_id="upstream_dag_3",
-        external_task_id="my_task",
-        allowed_states=["success"],
-        failed_states=["failed", "skipped"],
+        python_callable=downstream_function_branch_3,
     )
 
     task_branch_3 = PythonOperator(
@@ -75,10 +51,4 @@ with DAG(
         python_callable=downstream_function_branch_3,
     )
 
-    start >> [ets_branch_1, ets_branch_2, ets_branch_3]
-
-    ets_branch_1 >> task_branch_1
-    ets_branch_2 >> task_branch_2
-    ets_branch_3 >> task_branch_3
-
-    [task_branch_1, task_branch_2, task_branch_3] >> end
+    start >> ets_branch_1 >> task_branch_1 >> ets_branch_3 >> end
