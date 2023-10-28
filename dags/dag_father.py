@@ -34,7 +34,7 @@ with DAG(
 
     trigger_dependent_dag = TriggerDagRunOperator(
         task_id="trigger_dependent_dag",
-        trigger_dag_id="dependent_dag",
+        trigger_dag_id="dag_son",
         wait_for_completion=True,
         deferrable=True,  # Note that this parameter only exists in Airflow 2.6+
     )
