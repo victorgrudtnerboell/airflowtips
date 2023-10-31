@@ -74,11 +74,21 @@ with DAG(
     )
 
     # Set up the order of tasks in the father DAG
-    start_task >> branch_son1_task
-    branch_son1_task >> [son1_trigger, terminate_workflow]
-
-    son1_trigger >> branch_son2_task
+    start_task >> son1_trigger >> branch_son2_task
     branch_son2_task >> [son2_trigger, terminate_workflow]
 
     son2_trigger >> son3_trigger
     son3_trigger >> terminate_workflow
+
+
+
+    # Set up the order of tasks in the father DAG
+    # start_task >> branch_son1_task
+    # branch_son1_task >> [son1_trigger, terminate_workflow]
+
+    # son1_trigger >> branch_son2_task
+    # branch_son2_task >> [son2_trigger, terminate_workflow]
+
+    # son2_trigger >> son3_trigger
+    # son3_trigger >> terminate_workflow
+
