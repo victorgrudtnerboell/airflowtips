@@ -17,10 +17,10 @@ def print_start(**kwargs):
     print("Starting the workflow.")
 
 def decide_branch_son2(**kwargs):
-    return "son2"
+    return "son2_trigger"
 
 def decide_branch_son3(**kwargs):
-    return "son3"
+    return "son3_trigger"
 
 def print_terminate(**kwargs):
     print("Workflow terminated.")
