@@ -8,10 +8,12 @@ def print_task_type(**kwargs):
 
 def decide_branch(**kwargs):
     # Determine the branch based on the result of the first TriggerDagRunOperator
-    if kwargs['ti'].xcom_pull(task_ids="trigger_dependent_dag") == "success":
+    ti = kwargs['ti']
+    first_trigger_status = ti.xcom_pull(task_ids="trigger_dependent_dag")
+    if first_trigger_status == "success":
         return "end_task"
     else:
-        return "trigger_dependent_dag2"
+        return "error_task"
 
 # Default settings applied to all tasks
 default_args = {
@@ -24,7 +26,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id="dag_branch_dependency",
+    dag_id="dag_father",
     start_date=datetime(2023, 1, 1),
     max_active_runs=1,
     schedule="@daily",
@@ -39,7 +41,7 @@ with DAG(
 
     trigger_dependent_dag = TriggerDagRunOperator(
         task_id="trigger_dependent_dag",
-        trigger_dag_id="dag_sonnnn",
+        trigger_dag_id="dag_son",
         wait_for_completion=True
     )
 
@@ -49,10 +51,10 @@ with DAG(
         op_kwargs={"task_type": "ending"},
     )
 
-    trigger_dependent_dag2 = TriggerDagRunOperator(
-        task_id="trigger_dependent_dag2",
-        trigger_dag_id="dag_son",
-        wait_for_completion=True
+    error_task = PythonOperator(
+        task_id="error_task",
+        python_callable=print_task_type,
+        op_kwargs={"task_type": "error"},
     )
 
     decide_branch_task = BranchPythonOperator(
@@ -61,4 +63,4 @@ with DAG(
     )
 
     start_task >> trigger_dependent_dag >> decide_branch_task
-    decide_branch_task >> [end_task, trigger_dependent_dag2]
+    decide_branch_task >> [end_task, error_task]
