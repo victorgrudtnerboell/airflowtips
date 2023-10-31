@@ -60,18 +60,21 @@ with DAG(
         task_id="son1_trigger",
         trigger_dag_id="son1",
         dag=father_dag,
+        wait_for_completion=True
     )
 
     son2_trigger = TriggerDagRunOperator(
         task_id="son2_trigger",
         trigger_dag_id="son2",
         dag=father_dag,
+        wait_for_completion=True
     )
 
     son3_trigger = TriggerDagRunOperator(
         task_id="son3_trigger",
         trigger_dag_id="son3",
         dag=father_dag,
+        wait_for_completion=True
     )
 
     start_task >> son1_trigger >> branch_son2_task
