@@ -27,7 +27,7 @@ def print_terminate(**kwargs):
     return "terminate_workflow"
 
 with DAG(
-    dag_id="multiples_branchs",
+    dag_id="father_dag",
     start_date=datetime(2023, 1, 1),
     max_active_runs=1,
     schedule_interval=None,  # Disable automatic scheduling
