@@ -16,10 +16,10 @@ default_args = {
 def print_start(**kwargs):
     print("Starting the workflow.")
 
-def decide_branch_son1(**kwargs):
+def decide_branch_son2(**kwargs):
     return "son2"
 
-def decide_branch_son2(**kwargs):
+def decide_branch_son3(**kwargs):
     return "son3"
 
 def print_terminate(**kwargs):
@@ -40,14 +40,14 @@ with DAG(
         python_callable=print_start,
     )
 
-    # branch_son1_task = BranchPythonOperator(
-    #     task_id="branch_son1_task",
-    #     python_callable=decide_branch_son1,
-    # )
-
     branch_son2_task = BranchPythonOperator(
         task_id="branch_son2_task",
         python_callable=decide_branch_son2,
+    )
+
+    branch_son3_task = BranchPythonOperator(
+        task_id="branch_son3_task",
+        python_callable=decide_branch_son3,
     )
 
     terminate_workflow = PythonOperator(
@@ -77,7 +77,8 @@ with DAG(
     start_task >> son1_trigger >> branch_son2_task
     branch_son2_task >> [son2_trigger, terminate_workflow]
 
-    son2_trigger >> son3_trigger
+    son2_trigger >> branch_son3_task
+    branch_son3_task >> [son3_trigger, terminate_workflow]
     son3_trigger >> terminate_workflow
 
 
