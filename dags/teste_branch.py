@@ -26,7 +26,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id="dag_father",
+    dag_id="dag_branch",
     start_date=datetime(2023, 1, 1),
     max_active_runs=1,
     schedule="@daily",
