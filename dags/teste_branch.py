@@ -39,7 +39,7 @@ with DAG(
 
     trigger_dependent_dag = TriggerDagRunOperator(
         task_id="trigger_dependent_dag",
-        trigger_dag_id="dag_son",
+        trigger_dag_id="dag_sonnnn",
         wait_for_completion=True
     )
 
