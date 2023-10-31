@@ -40,10 +40,10 @@ with DAG(
         python_callable=print_start,
     )
 
-    branch_son1_task = BranchPythonOperator(
-        task_id="branch_son1_task",
-        python_callable=decide_branch_son1,
-    )
+    # branch_son1_task = BranchPythonOperator(
+    #     task_id="branch_son1_task",
+    #     python_callable=decide_branch_son1,
+    # )
 
     branch_son2_task = BranchPythonOperator(
         task_id="branch_son2_task",
