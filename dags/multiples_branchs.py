@@ -43,6 +43,7 @@ with DAG(
     branch_son2_task = BranchPythonOperator(
         task_id="branch_son2_task",
         python_callable=decide_branch_son2,
+        provide_context=True 
     )
 
     branch_son3_task = BranchPythonOperator(
