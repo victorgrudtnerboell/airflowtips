@@ -48,7 +48,20 @@ def create_branching_dag(dag_id, condition_task, trigger_son_task, finish_task):
 
     return dag
 
+# Define your condition, trigger, and finish tasks for each DAG
+condition_task_1 = YourConditionTask1()
+trigger_son_task_1 = YourTriggerSonTask1()
+finish_task_1 = YourFinishTask1()
+
+condition_task_2 = YourConditionTask2()
+trigger_son_task_2 = YourTriggerSonTask2()
+finish_task_2 = YourFinishTask2()
+
+condition_task_3 = YourConditionTask3()
+trigger_son_task_3 = YourTriggerSonTask3()
+finish_task_3 = YourFinishTask3()
+
 # Create three branching DAGs
-dag_1 = create_branching_dag("dag_father_1", condition_task=trigger_son1, trigger_son_task=trigger_son2, finish_task=finish_task)
-dag_2 = create_branching_dag("dag_father_2", condition_task=trigger_son3, trigger_son_task=trigger_son4, finish_task=finish_task)
-dag_3 = create_branching_dag("dag_father_3", condition_task=trigger_son5, trigger_son_task=trigger_son6, finish_task=finish_task)
+dag_1 = create_branching_dag("dag_father_1", condition_task_1, trigger_son_task_1, finish_task_1)
+dag_2 = create_branching_dag("dag_father_2", condition_task_2, trigger_son_task_2, finish_task_2)
+dag_3 = create_branching_dag("dag_father_3", condition_task_3, trigger_son_task_3, finish_task_3)
