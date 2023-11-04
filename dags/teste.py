@@ -57,7 +57,7 @@ with models.DAG(
         location=CLUSTER_ZONE,
         cluster_name=CLUSTER_NAME,
         namespace="default",
-        image="kiwigrid/gcloud-kubectl-helm:latest",
+        image="gcr.io/dagdependency/teste/teste:1.0",
         cmds=[
         "sh",
         "-c",
