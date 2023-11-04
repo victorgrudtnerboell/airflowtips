@@ -50,12 +50,14 @@ with models.DAG(
         location=CLUSTER_ZONE,
         cluster_name=CLUSTER_NAME,
         namespace="default",
-        image="ubuntu:latest",
-        cmds=["bash", "-cx"],
-        arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
+        image="bitnami/kubectl:latest",
+        cmds=["kubectl", "get", "nodes"],
         gcp_conn_id='google_cloud_default'
     )
-
+    #     arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
+    #     gcp_conn_id='google_cloud_default'
+    # )
+    
     delete_cluster = GKEDeleteClusterOperator(
         task_id="delete_cluster",
         name=CLUSTER_NAME,
@@ -64,6 +66,6 @@ with models.DAG(
     )
 
     # create_cluster >> create_node_pools >> kubernetes_min_pod >> delete_cluster
-    create_cluster >> kubernetes_min_pod >> delete_cluster
+    create_cluster >> kubernetes_min_pod # >> delete_cluster
     # create_cluster >> 
     # kubernetes_min_pod # >> delete_cluster
