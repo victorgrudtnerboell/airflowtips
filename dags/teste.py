@@ -52,7 +52,8 @@ with models.DAG(
         namespace="default",
         image="bitnami/kubectl:latest",
         cmds=["kubectl", "get", "nodes"],
-        gcp_conn_id='google_cloud_default'
+        gcp_conn_id='google_cloud_default',
+        in_cluster=True
     )
     #     arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
     #     gcp_conn_id='google_cloud_default'
