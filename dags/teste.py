@@ -59,7 +59,7 @@ with models.DAG(
         namespace="default",
         image="kiwigrid/gcloud-kubectl-helm:latest",
         cmds=[
-        "sh",
+        "bash",
         "-c",
         "gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && kubectl get nodes && kubectl get pods"
         ],
