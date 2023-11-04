@@ -50,9 +50,9 @@ with models.DAG(
         location=CLUSTER_ZONE,
         cluster_name=CLUSTER_NAME,
         namespace="default",
-        image="bash",
-        cmds=["echo"],
-        arguments=["{{ ds }}"],
+        image="ubuntu:latest",
+        cmds=["bash", "-cx"],
+        arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
         gcp_conn_id='google_cloud_default'
     )
 
