@@ -61,7 +61,7 @@ with models.DAG(
         cmds=[
         "sh",
         "-c",
-        "gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && kubectl get nods && kubectl get pods"
+        "gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && kubectl get nodes && kubectl get pods"
         ],
         gcp_conn_id='google_cloud_default',
         in_cluster=True
