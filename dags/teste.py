@@ -56,17 +56,17 @@ with models.DAG(
         gcp_conn_id='google_cloud_default'
     )
 
-    kubernetes_min_pod = KubernetesPodOperator(
-        task_id="kubernetes_pod",
-        namespace='default',
-        image="ubuntu:latest",
-        cmds=["bash", "-cx"],
-        arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
-        name="kubernetes-pod",
-        is_delete_operator_pod=True,
-        hostnetwork=False,
-        startup_timeout_seconds=1000
-    )
+    # kubernetes_min_pod = KubernetesPodOperator(
+    #     task_id="kubernetes_pod",
+    #     namespace='default',
+    #     image="ubuntu:latest",
+    #     cmds=["bash", "-cx"],
+    #     arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
+    #     name="kubernetes-pod",
+    #     is_delete_operator_pod=True,
+    #     hostnetwork=False,
+    #     startup_timeout_seconds=1000
+    # )
 
     delete_cluster = GKEDeleteClusterOperator(
         task_id="delete_cluster",
