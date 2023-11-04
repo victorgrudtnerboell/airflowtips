@@ -42,13 +42,6 @@ with models.DAG(
         location=CLUSTER_ZONE,
         body=CLUSTER,
     )
-
-
-    # create_node_pools = BashOperator(
-    #     task_id="create_node_pools",
-    #     bash_command=f"gcloud container clusters get-credentials {CLUSTER_NAME} --zone  {CLUSTER_ZONE} --project  {PROJECT_ID}"
-    # )
-
     
     kubernetes_min_pod = GKEStartPodOperator(
         task_id="ex-kube-templates",
@@ -61,15 +54,11 @@ with models.DAG(
         cmds=[
         "sh",
         "-c",
-        "gcloud auth activate-service-account --key-file=/dagdependency-9dc6252e7cfc.json && gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && kubectl get nodes && kubectl get pods"
+        "gcloud auth activate-service-account --key-file=/dagdependency-9dc6252e7cfc.json && gcloud components install gke-gcloud-auth-plugin && gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && kubectl get nodes && kubectl get pods"
         ],
         gcp_conn_id='google_cloud_default',
         in_cluster=True
     )
-    #     arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
-    #     gcp_conn_id='google_cloud_default'
-    # )         gcloud auth activate-service-account --key-file=/dagdependency-9dc6252e7cfc.json && gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && kubectl get nodes && kubectl get pods"
-
     
     # delete_cluster = GKEDeleteClusterOperator(
     #     task_id="delete_cluster",
