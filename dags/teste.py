@@ -61,7 +61,7 @@ with models.DAG(
         cmds=[
         "sh",
         "-c",
-        "ls -la && pwd && ls -la / "
+        "gcloud auth activate-service-account --key-file=/dagdependency-9dc6252e7cfc.json && gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && kubectl get nodes && kubectl get pods"
         ],
         gcp_conn_id='google_cloud_default',
         in_cluster=True
