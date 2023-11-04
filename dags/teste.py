@@ -16,7 +16,7 @@ with models.DAG(
     tags=["example"],
 ) as dag:
     # TODO(developer): update with your values
-    PROJECT_ID = "airflowgke-402322"
+    PROJECT_ID = "dagdependency"
     CLUSTER_ZONE = "us-central1-c"
     CLUSTER_NAME = "example-cluster"
     # CLUSTER = {"name": CLUSTER_NAME, "initial_node_count": 1}
@@ -36,37 +36,37 @@ with models.DAG(
     ],
     }
 
-    # create_cluster = GKECreateClusterOperator(
-    #     task_id="create_cluster",
-    #     project_id=PROJECT_ID,
-    #     location=CLUSTER_ZONE,
-    #     body=CLUSTER,
-    # )
+    create_cluster = GKECreateClusterOperator(
+        task_id="create_cluster",
+        project_id=PROJECT_ID,
+        location=CLUSTER_ZONE,
+        body=CLUSTER,
+    )
 
-    # kubernetes_min_pod = GKEStartPodOperator(
-    #     task_id="ex-kube-templates",
-    #     name="ex-kube-templates",
-    #     project_id=PROJECT_ID,
-    #     location=CLUSTER_ZONE,
-    #     cluster_name=CLUSTER_NAME,
-    #     namespace="default",
-    #     image="bash",
-    #     cmds=["echo"],
-    #     arguments=["{{ ds }}"],
-    #     gcp_conn_id='google_cloud_default'
-    # )
+    kubernetes_min_pod = GKEStartPodOperator(
+        task_id="ex-kube-templates",
+        name="ex-kube-templates",
+        project_id=PROJECT_ID,
+        location=CLUSTER_ZONE,
+        cluster_name=CLUSTER_NAME,
+        namespace="default",
+        image="bash",
+        cmds=["echo"],
+        arguments=["{{ ds }}"],
+        gcp_conn_id='google_cloud_default'
+    )
 
-    # kubernetes_min_pod = KubernetesPodOperator(
-    #     task_id="kubernetes_pod",
-    #     namespace='default',
-    #     image="ubuntu:latest",
-    #     cmds=["bash", "-cx"],
-    #     arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
-    #     name="kubernetes-pod",
-    #     is_delete_operator_pod=True,
-    #     hostnetwork=False,
-    #     startup_timeout_seconds=1000
-    # )
+    kubernetes_min_pod = KubernetesPodOperator(
+        task_id="kubernetes_pod",
+        namespace='default',
+        image="ubuntu:latest",
+        cmds=["bash", "-cx"],
+        arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
+        name="kubernetes-pod",
+        is_delete_operator_pod=True,
+        hostnetwork=False,
+        startup_timeout_seconds=1000
+    )
 
     delete_cluster = GKEDeleteClusterOperator(
         task_id="delete_cluster",
@@ -76,7 +76,6 @@ with models.DAG(
     )
 
     # create_cluster >> create_node_pools >> kubernetes_min_pod >> delete_cluster
-    # create_cluster >> kubernetes_min_pod >> 
-    delete_cluster
+    # create_cluster >> kubernetes_min_pod >> delete_cluster
     # create_cluster >> 
     # kubernetes_min_pod # >> delete_cluster
