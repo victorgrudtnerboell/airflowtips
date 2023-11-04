@@ -43,6 +43,13 @@ with models.DAG(
         body=CLUSTER,
     )
 
+
+    # create_node_pools = BashOperator(
+    #     task_id="create_node_pools",
+    #     bash_command=f"gcloud container clusters get-credentials {CLUSTER_NAME} --zone  {CLUSTER_ZONE} --project  {PROJECT_ID}"
+    # )
+
+    
     kubernetes_min_pod = GKEStartPodOperator(
         task_id="ex-kube-templates",
         name="ex-kube-templates",
@@ -50,10 +57,14 @@ with models.DAG(
         location=CLUSTER_ZONE,
         cluster_name=CLUSTER_NAME,
         namespace="default",
-        image="bitnami/kubectl:latest",
-        cmds=["kubectl", "get", "nodes"],
+        image="kiwigrid/gcloud-kubectl-helm:latest",
+        cmds=[
+        "sh",
+        "-c",
+        "gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && kubectl get nods && kubectl get pods"
+        ],
         gcp_conn_id='google_cloud_default',
-        in_cluster=False
+        in_cluster=True
     )
     #     arguments=["for i in {1..10}; do echo -n 'Olá mundo '; done;"],
     #     gcp_conn_id='google_cloud_default'
