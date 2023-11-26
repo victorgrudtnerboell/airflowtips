@@ -57,7 +57,7 @@ with models.DAG(
         " echo 'vai autenticar' && gcloud auth activate-service-account --key-file=/dagdependency-9dc6252e7cfc.json && echo 'autenticou' && echo 'instalando plugins' && gcloud components install gke-gcloud-auth-plugin && echo 'instalou plugins' && echo 'pegando credencial' && gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && echo 'pegou credencial' && kubectl get nodes && kubectl get pods"
         ],
         gcp_conn_id='google_cloud_default',
-        service_account_name="victorgrudtner@gmail.com",
+        service_account_name="306212353875-compute@developer.gserviceaccount.com",
         deferrable=False
     )
     
