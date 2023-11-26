@@ -56,7 +56,9 @@ with models.DAG(
         "-c",
         " echo 'vai autenticar' && gcloud auth activate-service-account --key-file=/dagdependency-9dc6252e7cfc.json && echo 'pegando credencial' && gcloud container clusters get-credentials example-cluster --zone us-central1-c --project dagdependency && echo 'pegou credencial' && kubectl get nodes && kubectl get pods"
         ],
-        gcp_conn_id='google_cloud_default'
+        gcp_conn_id='google_cloud_default',
+        in_cluster=true,
+        service_account_name="service-306212353875@container-engine-robot.iam.gserviceaccount.com"
     )
     
     # delete_cluster = GKEDeleteClusterOperator(
