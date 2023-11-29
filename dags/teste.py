@@ -58,7 +58,7 @@ with models.DAG(
         ],
         gcp_conn_id='google_cloud_default',
         in_cluster=True,
-        impersonation_chain="306212353875-compute@developer.gserviceaccount.com"
+        impersonation_chain="service-306212353875@compute-system.iam.gserviceaccount.com"
     )
     
     # delete_cluster = GKEDeleteClusterOperator(
